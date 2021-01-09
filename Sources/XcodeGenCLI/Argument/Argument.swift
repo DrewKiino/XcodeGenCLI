@@ -12,12 +12,16 @@ internal enum Argument: String, Codable, CaseIterable {
   case workspaceDirectory = "--workspace"
   case targets = "--targets"
   case envFile = "--env-file"
+  case sourceFile = "--source-file"
+  case targetFile = "--target-file"
 
   var defaultValue: String {
     switch self {
     case .workspaceDirectory: return run(bash: "pwd").stdout
     case .targets: return ""
     case .envFile: return ".env"
+    case .sourceFile: return "project.json"
+    case .targetFile: return "project.json"
     }
   }
   
@@ -29,5 +33,6 @@ internal enum Argument: String, Codable, CaseIterable {
     return nil
   }
 }
+
 
 

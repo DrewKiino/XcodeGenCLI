@@ -11,7 +11,9 @@ import SwiftShell
 internal func parseEnvFile(arguments: Arguments) -> [String: String] {
   return Dictionary(run(bash: "cat \(arguments[.envFile])").stdout.split(separator: "\n").compactMap { argument -> (String, String)? in
     let split = argument.split(separator: "=")
-    if let key = split.first?.toString(), let value = split.last?.toString() {
+    if split.count == 2,
+       let key = split.first?.toString().trimmingCharacters(in: .whitespacesAndNewlines),
+       let value = split.last?.toString().trimmingCharacters(in: .whitespacesAndNewlines) {
       return (key, value)
     }
     return nil
